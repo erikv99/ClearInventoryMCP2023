@@ -1,0 +1,21 @@
+# Worlds in which the plugin is not active
+# Meaning all options below will be considered false in this world.
+# (Leave empty or remove if not needed)
+excludedWorlds:
+  - world_the_end
+  - world_nether
+
+# should the players inventory be cleared on death? (items that are not dropped will be cleared)
+clearInventoryOnDeath: true
+
+# should player death still drop items or not
+dropItemsOnDeath: false
+
+# should player xp be cleared on death
+dropXpOnDeath: false
+
+# should player xp be cleared on leave
+clearXpOnLeave: true
+
+# should inventory be cleared on leave?
+clearInventoryOnLeave: true

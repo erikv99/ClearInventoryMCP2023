@@ -1,0 +1,21 @@
+main: clear_inventory.Plugin
+name: ClearInventory
+version: 1.2
+api-version: 1.18
+description: Clears the players inventory on dying and leaving
+author: Erik V aka eroxx99
+website: https://github.com/erikv99
+
+permissions:
+
+  clearinventory.leave.bypass:
+    description: Players xp and inventory will not be wiped upon leaving.
+    children:
+      clearinventory.leave.clearxpbypass: true
+      clearinventory.leave.clearinvbypass: true
+
+  clearinventory.leave.clearxpbypass:
+    description: Players xp will not be cleared when leaving
+
+  clearinventory.leave.clearinvbypass:
+    description: Players inventory will not be cleared when leaving
