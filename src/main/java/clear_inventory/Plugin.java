@@ -72,13 +72,12 @@ public class Plugin extends JavaPlugin
         settings.put("clearInventoryOnLeave", config.getBoolean("clearInventoryOnLeave"));
 
         var excludedWorlds = _loadExcludedWorlds();
-        Logger.severe("Excluded world count: " + excludedWorlds.size());
         settings.put("excludedWorlds", new ArrayList<>(excludedWorlds));
         Settings = settings;
     }
 
     @SuppressWarnings("ConstantConditions")
-    private List<World> _loadExcludedWorlds()
+    private List<String> _loadExcludedWorlds()
     {
         var config = getConfig();
 
@@ -87,25 +86,7 @@ public class Plugin extends JavaPlugin
             return new ArrayList<>();
         }
 
-        return config.getStringList("excludedWorlds")
-              .stream()
-              .map(s ->
-              {
-                  var world = Bukkit.getWorld(s);
-
-                  if (s == null)
-                  {
-                      Logger.warning("Ignored world '" + s + "' in excluded worlds, world could not be found.");
-                  }
-                  else
-                  {
-                      return world;
-                  }
-
-                  return null;
-              })
-              .filter(Objects::nonNull)
-              .toList();
+        return config.getStringList("excludedWorlds");
     }
 
     private void _loadConfig()
@@ -127,20 +108,18 @@ public class Plugin extends JavaPlugin
     @SuppressWarnings("unchecked")
     public boolean IsInExcludedWorld(Entity entity)
     {
-        List<World> excludedWorlds = new ArrayList<>();
+        List<String> excludedWorlds = new ArrayList<>();
 
         try
         {
-            excludedWorlds = (List<World>) Settings.get("excludedWorlds");
+            excludedWorlds = (List<String>) Settings.get("excludedWorlds");
         }
         catch (Exception e)
         {
             Logger.severe("Failed to load excluded worlds");
             return true;
         }
-
-        var entWolrd = entity.getWorld().getName();
-        Logger.severe("entity world: " + entWolrd);
-        return excludedWorlds.contains(entity.getWorld());
+        var entityWorld = entity.getWorld().getName();
+        return excludedWorlds.contains(entityWorld);
     }
 }
